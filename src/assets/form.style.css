@@ -1,0 +1,152 @@
+:root {
+  --primary-red: #e60000;
+  --bg-dark: #0a0a0a;
+  --card-bg: #121214;
+  --input-bg: #1a1a1a;
+  --text-gray: #a1a1aa;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* O brilho vermelho atrás do logo */
+.background-glow {
+  position: absolute;
+  top: 20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(230, 0, 0, 0.15) 0%, transparent 70%);
+  z-index: -1;
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo-section h1 {
+  font-size: 2.5rem;
+  letter-spacing: 4px;
+  margin: 10px 0;
+}
+
+.logo-section h1 span {
+  color: var(--primary-red);
+}
+
+.logo-img {
+    width: 200px;
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  color: var(--text-gray);
+  letter-spacing: 2px;
+}
+
+/* O Card Estilo Dark */
+.login-card {
+  background-color: var(--card-bg);
+  padding: 40px;
+  border-radius: 12px;
+  width: 500px;
+  min-width: 400px;
+  border: 1px solid #27272a;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.login-card h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.login-card p {
+  color: var(--text-gray);
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Inputs conforme a imagem */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: var(--text-gray);
+  margin-bottom: 8px;
+}
+
+
+.input-wrapper {
+  background-color: var(--input-bg);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  /* padding: 0 15px; */
+}
+
+.input-wrapper input {
+  background: transparent;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  color: white;
+  outline: none;
+}
+
+.input-wrapper input:focus {
+    border: 1px solid red;
+    border-radius: 5px;
+}
+
+/* Botão de Destaque */
+.btn-login, .btn-login-readonly {
+  width: 100%;
+  background-color: var(--primary-red);
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 4px;
+  font-weight: thin;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.btn-login-readonly {
+    color: var(--card-bg);
+    background-color: var(--text-gray);
+    cursor: default;
+}
+
+.btn-login:hover {
+  background-color: #ff1a1a;
+  transform: translateY(-2px);
+}
+
+.error-msg {
+    margin: 30px 0 0 0;
+    color: var(--primary-red);
+    text-align: center;
+}

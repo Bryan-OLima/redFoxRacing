@@ -1,0 +1,13 @@
+{
+    "createAccount" : {
+        "error": {
+            "invalidEmail" : "Email inválido. Insira um email válido!",
+            "weakPassword" : "A senha é muito fraca.",
+            "emailAlreadyInUse" : "Este email já está em uso.",
+            "unknownError" : "Ocorreu um erro inesperado"
+        },
+        "success": {
+            "accountCreated" : "Seu acesso ao paddock foi criado com sucesso! Redirecionando para a area de Login"
+        }
+    }
+}
