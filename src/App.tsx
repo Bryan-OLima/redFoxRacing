@@ -1,24 +1,40 @@
+import { useState, useEffect } from 'react';
 import './App.css'
 import MainPage from './pages/main/Index';
+import {useNavigate, type NavigateFunction } from 'react-router-dom';
+import { firebaseConfig } from './firebaseConfig';
+import { getAuth, onAuthStateChanged, type User } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import LoginPage from './pages/login/Index';
 
-// interface User {
-//   name: string;
-//   imgUrl: string;
-//   imgSize: number;
-//   isLoggedIn?: boolean;
-// }
-
-// const user : User = {
-//   name: '',
-//   imgUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
-//   imgSize: 90,
-//   isLoggedIn: false
-// }
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 function App() {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const navigate: NavigateFunction = useNavigate();
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false)
+    });
+
+    return() => unsub();
+  },[]);
+  
+  
+  if (loading) return <div> Loading...</div>
   return (
     <>
-      <MainPage />
+      {user? (
+        <MainPage user = {user} />
+        ) : (
+          <LoginPage />
+        )
+      }
     </>
   )
 }

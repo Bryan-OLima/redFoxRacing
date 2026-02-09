@@ -4,6 +4,7 @@ import LoginPage from "./pages/login/Index";
 import SetupsPage from "./pages/setups/Index";
 import { TimingsPage } from "./pages/timings/Index";
 import App from "./App";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 
 export const router = createBrowserRouter([
@@ -13,7 +14,11 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <App />
+                element: (
+                    <ProtectedRoute>
+                        <App />
+                    </ProtectedRoute>
+            ),
             },
         ]
     },
@@ -22,8 +27,11 @@ export const router = createBrowserRouter([
         // element:
          children: [
             {
-                index: true,
-                element: <LoginPage />
+                element: (
+                    <ProtectedRoute>
+                        <LoginPage />
+                    </ProtectedRoute>
+                ),
             },
         ]
     },
@@ -32,8 +40,11 @@ export const router = createBrowserRouter([
         // element:
          children: [
             {
-                index: true,
-                element: <CreateAccountPage />
+                element: (
+                    <ProtectedRoute>
+                        <CreateAccountPage />
+                    </ProtectedRoute>
+                ),
             },
         ]
     },
@@ -42,8 +53,11 @@ export const router = createBrowserRouter([
         // element:
          children: [
             {
-                index: true,
-                element: <SetupsPage />
+                element:(
+                    <ProtectedRoute>
+                        <SetupsPage />
+                    </ProtectedRoute>
+                ),
             },
         ]
     },
@@ -52,8 +66,11 @@ export const router = createBrowserRouter([
         // element:
          children: [
             {
-                index: true,
-                element: <TimingsPage />
+                element:(
+                    <ProtectedRoute>
+                        <TimingsPage />
+                    </ProtectedRoute>
+                ),
             },
         ]
     }

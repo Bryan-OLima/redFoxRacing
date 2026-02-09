@@ -3,49 +3,51 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {type NavigateFunction } from "react-router-dom";
 //Firebase imports
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../../firebaseConfig.ts";
-import { getAuth, createUserWithEmailAndPassword, type Auth } from "firebase/auth";
+import { auth } from "../../firebaseConfig.ts";
+import { createUserWithEmailAndPassword, type Auth, updateProfile } from "firebase/auth";
 //Alerts imports
-import ErrorAlert from "../../components/alerts/errorAlert.tsx";
+import ErrorAlert from "../../components/alerts/ErrorAlert.tsx";
 import { ErrorMessage, SuccessMessage } from "../../assets/Messages.tsx";
-import SuccessAlert from "../../components/alerts/successAlert.tsx";
+import SuccessAlert from "../../components/alerts/SuccessAlert.tsx";
 
 import './style.css';
 
-const app = initializeApp(firebaseConfig);
-const auth: Auth = getAuth(app);
 
 function CreateAccountPage() {
-    const [message, setMessage] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
     const [isError, setIsError] = useState(false);
+    const [password, setPassword] = useState('');
+    const [userName, setUserName] = useState('');
     
     const navigate: NavigateFunction = useNavigate();
 
     const handleSubmit = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredentials) => {
-                const redirectTimer =  setTimeout(() => {
-                        navigate('/login');
-                },2000)
-                
+                const user: any = userCredentials.user;
+                console.log(user);
 
-                console.log(userCredentials.user);
-                console.log(userCredentials);
-                
-                redirectTimer;
-                setIsError(false);
-                setMessage(SuccessMessage());
+                const redirectTimer = setTimeout( () => {
+                    navigate('/login');
+                }, 3000);
 
+                updateProfile(user, {
+                    displayName: userName
+                }).then(() => {
+                    console.log(`Account succefull created on name of: ${userName}`);
+                    
+                    redirectTimer;
+                    setIsError(false);
+                    setMessage(SuccessMessage());
+                });
             })
-            .catch((err) => { 
-                setIsError(true)
-                return(
-                    setMessage(ErrorMessage(err))
-                )
-            });
+        .catch((err) => { 
+            setIsError(true);
+            return(
+                setMessage(ErrorMessage(err))
+            )
+        });
     }
 
     return (
@@ -62,6 +64,20 @@ function CreateAccountPage() {
                 <p>Insira suas informações para criar acesso a telemetria</p>
 
                 <div>
+                    <div className="input-group">
+                        <label>NOME</label>
+                        <div className="input-wrapper">
+                        <i className="icon-user"></i>
+                        <input 
+                            type="text" 
+                            placeholder="Seu Nome"
+                            value={userName} 
+                            onChange={e => setUserName(e.target.value)} 
+                            required
+                        />
+                        </div>
+                    </div>
+
                     <div className="input-group">
                         <label>EMAIL</label>
                         <div className="input-wrapper">
@@ -97,23 +113,24 @@ function CreateAccountPage() {
                             <button type="submit" className="btn-login-readonly">
                                 CADÊ AS CREDÊNCIAIS?
                             </button>
-                        )}
-
-                </div>
-                {message == ''? (<div></div>):(<div>
-                    {message && isError?(
-                    <div className="error-msg">
-                        <ErrorAlert 
-                            message={message}
-                        />
-                    </div>) : (
-                        <div className="error-msg">
-                            <SuccessAlert 
-                                message={message}
-                            />
-                        </div>
                     )}
-                </div>)}
+                </div>
+                {message == ''? (<div></div>):(
+                    <div>
+                        {message && isError?(
+                            <div className="msg">
+                                <ErrorAlert 
+                                    message={message}
+                                />
+                            </div>) : (
+                            <div className="msg">
+                                <SuccessAlert 
+                                    message={message}
+                                />
+                            </div>
+                            )}
+                    </div>
+                )}
 
             </main>           
 

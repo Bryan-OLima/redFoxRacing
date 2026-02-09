@@ -1,3 +1,22 @@
 export interface IUser {
-    
+    accessToken?: string,
+    auth?: {},
+    displayName: string,
+    email: string,
+    emailVerified: boolean,
+    isAnonymous: boolean,
+    metaData?: {
+        createdAt: string,
+        creationTime: string,
+        lastSignInTime: string,
+    },
+    phoneNumber?: string,
+    photoUrl?: string,
+    proactiveRefresh?: any,
+    realoadListener?: any,
+    realoadUserInfo?: any,
+    validSince?: string,
+    stsTokenManager?: any,
+    tenantId?: any,
+    uid?: string,
 }

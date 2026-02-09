@@ -1,24 +1,23 @@
 // import {signInWithEmailAndPassword} from "firebase"
-import { initializeApp } from "firebase/app";
-import {firebaseConfig} from "../../firebaseConfig.ts";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from "../../firebaseConfig.ts";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import './style.css'
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import { useNavigate, type NavigateFunction } from "react-router-dom";
 
 function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-
+ 
+    const navigate: NavigateFunction = useNavigate();
     const handleSubmit = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredentials) => {
-                console.log(userCredentials.user.uid);
+                console.log('user logado!', userCredentials);
+                navigate('/');
             })
-            .catch((err) => err);
+            .catch((err) => setErrorMessage(err));
     }
     return (
         <div className="login-container">
