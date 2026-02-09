@@ -1,5 +1,5 @@
 import { signOut, type User } from "firebase/auth";
-import { auth } from "../../firebaseConfig";
+import { auth } from "../../../firebaseConfig";
 
 interface MainPageProps {
     user: User;

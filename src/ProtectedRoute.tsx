@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import {useAuthState} from 'react-firebase-hooks/auth';
-import {auth} from './firebaseConfig.ts';
+import {auth} from '../firebaseConfig.ts';
 import type { JSX } from "react";
 
 export const ProtectedRoute = ({ children }: {children: JSX.Element}) => {

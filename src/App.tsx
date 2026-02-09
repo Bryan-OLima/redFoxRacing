@@ -2,13 +2,11 @@ import { useState, useEffect } from 'react';
 import './App.css'
 import MainPage from './pages/main/Index';
 import {useNavigate, type NavigateFunction } from 'react-router-dom';
-import { firebaseConfig } from './firebaseConfig';
+import { firebaseConfig } from '../firebaseConfig';
 import { getAuth, onAuthStateChanged, type User } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import LoginPage from './pages/login/Index';
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import {auth} from '../firebaseConfig'
 
 function App() {
   const [user, setUser] = useState<User | null>(null);

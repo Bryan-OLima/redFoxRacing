@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {type NavigateFunction } from "react-router-dom";
 //Firebase imports
-import { auth } from "../../firebaseConfig.ts";
+import { auth } from "../../../firebaseConfig.ts";
 import { createUserWithEmailAndPassword, type Auth, updateProfile } from "firebase/auth";
 //Alerts imports
 import ErrorAlert from "../../components/alerts/ErrorAlert.tsx";
